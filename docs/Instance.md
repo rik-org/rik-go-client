@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Simple helper schema to define an UUID | [optional] 
+**Kind** | Pointer to [**Kind**](Kind.md) |  | [optional] 
+**Status** | Pointer to [**Status**](Status.md) |  | [optional] 
+**WorkloadId** | Pointer to **string** | Simple helper schema to define an UUID | [optional] 
 **Namespace** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**WorkloadId** | Pointer to **string** |  | [optional] 
 **Spec** | Pointer to [**InstanceSpec**](InstanceSpec.md) |  | [optional] 
 
 ## Methods
@@ -57,20 +57,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetKind
 
-`func (o *Instance) GetKind() string`
+`func (o *Instance) GetKind() Kind`
 
 GetKind returns the Kind field if non-nil, zero value otherwise.
 
 ### GetKindOk
 
-`func (o *Instance) GetKindOk() (*string, bool)`
+`func (o *Instance) GetKindOk() (*Kind, bool)`
 
 GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKind
 
-`func (o *Instance) SetKind(v string)`
+`func (o *Instance) SetKind(v Kind)`
 
 SetKind sets Kind field to given value.
 
@@ -80,47 +80,22 @@ SetKind sets Kind field to given value.
 
 HasKind returns a boolean if a field has been set.
 
-### GetNamespace
-
-`func (o *Instance) GetNamespace() string`
-
-GetNamespace returns the Namespace field if non-nil, zero value otherwise.
-
-### GetNamespaceOk
-
-`func (o *Instance) GetNamespaceOk() (*string, bool)`
-
-GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNamespace
-
-`func (o *Instance) SetNamespace(v string)`
-
-SetNamespace sets Namespace field to given value.
-
-### HasNamespace
-
-`func (o *Instance) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
-
 ### GetStatus
 
-`func (o *Instance) GetStatus() string`
+`func (o *Instance) GetStatus() Status`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Instance) GetStatusOk() (*string, bool)`
+`func (o *Instance) GetStatusOk() (*Status, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Instance) SetStatus(v string)`
+`func (o *Instance) SetStatus(v Status)`
 
 SetStatus sets Status field to given value.
 
@@ -154,6 +129,31 @@ SetWorkloadId sets WorkloadId field to given value.
 `func (o *Instance) HasWorkloadId() bool`
 
 HasWorkloadId returns a boolean if a field has been set.
+
+### GetNamespace
+
+`func (o *Instance) GetNamespace() string`
+
+GetNamespace returns the Namespace field if non-nil, zero value otherwise.
+
+### GetNamespaceOk
+
+`func (o *Instance) GetNamespaceOk() (*string, bool)`
+
+GetNamespaceOk returns a tuple with the Namespace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNamespace
+
+`func (o *Instance) SetNamespace(v string)`
+
+SetNamespace sets Namespace field to given value.
+
+### HasNamespace
+
+`func (o *Instance) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### GetSpec
 

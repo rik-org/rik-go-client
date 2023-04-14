@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Containers** | Pointer to [**[]ContainerWorkload**](ContainerWorkload.md) |  | [optional] 
+**Containers** | Pointer to [**[]Container**](Container.md) |  | [optional] 
 **Function** | Pointer to [**InstanceSpecFunction**](InstanceSpecFunction.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetContainers
 
-`func (o *InstanceSpec) GetContainers() []ContainerWorkload`
+`func (o *InstanceSpec) GetContainers() []Container`
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-`func (o *InstanceSpec) GetContainersOk() (*[]ContainerWorkload, bool)`
+`func (o *InstanceSpec) GetContainersOk() (*[]Container, bool)`
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-`func (o *InstanceSpec) SetContainers(v []ContainerWorkload)`
+`func (o *InstanceSpec) SetContainers(v []Container)`
 
 SetContainers sets Containers field to given value.
 

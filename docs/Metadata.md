@@ -1,78 +1,78 @@
-# WorkloadName
+# Metadata
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | Simple helper schema to define an UUID | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
-### NewWorkloadName
+### NewMetadata
 
-`func NewWorkloadName() *WorkloadName`
+`func NewMetadata() *Metadata`
 
-NewWorkloadName instantiates a new WorkloadName object
+NewMetadata instantiates a new Metadata object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewWorkloadNameWithDefaults
+### NewMetadataWithDefaults
 
-`func NewWorkloadNameWithDefaults() *WorkloadName`
+`func NewMetadataWithDefaults() *Metadata`
 
-NewWorkloadNameWithDefaults instantiates a new WorkloadName object
+NewMetadataWithDefaults instantiates a new Metadata object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *WorkloadName) GetId() string`
+`func (o *Metadata) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *WorkloadName) GetIdOk() (*string, bool)`
+`func (o *Metadata) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *WorkloadName) SetId(v string)`
+`func (o *Metadata) SetId(v string)`
 
 SetId sets Id field to given value.
 
 ### HasId
 
-`func (o *WorkloadName) HasId() bool`
+`func (o *Metadata) HasId() bool`
 
 HasId returns a boolean if a field has been set.
 
 ### GetName
 
-`func (o *WorkloadName) GetName() string`
+`func (o *Metadata) GetName() string`
 
 GetName returns the Name field if non-nil, zero value otherwise.
 
 ### GetNameOk
 
-`func (o *WorkloadName) GetNameOk() (*string, bool)`
+`func (o *Metadata) GetNameOk() (*string, bool)`
 
 GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetName
 
-`func (o *WorkloadName) SetName(v string)`
+`func (o *Metadata) SetName(v string)`
 
 SetName sets Name field to given value.
 
 ### HasName
 
-`func (o *WorkloadName) HasName() bool`
+`func (o *Metadata) HasName() bool`
 
 HasName returns a boolean if a field has been set.
 

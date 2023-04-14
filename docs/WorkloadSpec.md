@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Function** | Pointer to [**FunctionWorkload**](FunctionWorkload.md) |  | [optional] 
-**Containers** | Pointer to [**[]ContainerWorkload**](ContainerWorkload.md) |  | [optional] 
+**Function** | Pointer to [**Function**](Function.md) |  | [optional] 
+**Containers** | Pointer to [**[]Container**](Container.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFunction
 
-`func (o *WorkloadSpec) GetFunction() FunctionWorkload`
+`func (o *WorkloadSpec) GetFunction() Function`
 
 GetFunction returns the Function field if non-nil, zero value otherwise.
 
 ### GetFunctionOk
 
-`func (o *WorkloadSpec) GetFunctionOk() (*FunctionWorkload, bool)`
+`func (o *WorkloadSpec) GetFunctionOk() (*Function, bool)`
 
 GetFunctionOk returns a tuple with the Function field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFunction
 
-`func (o *WorkloadSpec) SetFunction(v FunctionWorkload)`
+`func (o *WorkloadSpec) SetFunction(v Function)`
 
 SetFunction sets Function field to given value.
 
@@ -53,20 +53,20 @@ HasFunction returns a boolean if a field has been set.
 
 ### GetContainers
 
-`func (o *WorkloadSpec) GetContainers() []ContainerWorkload`
+`func (o *WorkloadSpec) GetContainers() []Container`
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-`func (o *WorkloadSpec) GetContainersOk() (*[]ContainerWorkload, bool)`
+`func (o *WorkloadSpec) GetContainersOk() (*[]Container, bool)`
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-`func (o *WorkloadSpec) SetContainers(v []ContainerWorkload)`
+`func (o *WorkloadSpec) SetContainers(v []Container)`
 
 SetContainers sets Containers field to given value.
 

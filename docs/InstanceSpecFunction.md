@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Execution** | Pointer to [**InstanceSpecFunctionExecution**](InstanceSpecFunctionExecution.md) |  | [optional] 
-**Exposure** | Pointer to [**InstanceSpecFunctionExposure**](InstanceSpecFunctionExposure.md) |  | [optional] 
+**Execution** | Pointer to [**FunctionExecution**](FunctionExecution.md) |  | [optional] 
+**Exposure** | Pointer to [**InstanceSpecFunctionAllOfExposure**](InstanceSpecFunctionAllOfExposure.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExecution
 
-`func (o *InstanceSpecFunction) GetExecution() InstanceSpecFunctionExecution`
+`func (o *InstanceSpecFunction) GetExecution() FunctionExecution`
 
 GetExecution returns the Execution field if non-nil, zero value otherwise.
 
 ### GetExecutionOk
 
-`func (o *InstanceSpecFunction) GetExecutionOk() (*InstanceSpecFunctionExecution, bool)`
+`func (o *InstanceSpecFunction) GetExecutionOk() (*FunctionExecution, bool)`
 
 GetExecutionOk returns a tuple with the Execution field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExecution
 
-`func (o *InstanceSpecFunction) SetExecution(v InstanceSpecFunctionExecution)`
+`func (o *InstanceSpecFunction) SetExecution(v FunctionExecution)`
 
 SetExecution sets Execution field to given value.
 
@@ -53,20 +53,20 @@ HasExecution returns a boolean if a field has been set.
 
 ### GetExposure
 
-`func (o *InstanceSpecFunction) GetExposure() InstanceSpecFunctionExposure`
+`func (o *InstanceSpecFunction) GetExposure() InstanceSpecFunctionAllOfExposure`
 
 GetExposure returns the Exposure field if non-nil, zero value otherwise.
 
 ### GetExposureOk
 
-`func (o *InstanceSpecFunction) GetExposureOk() (*InstanceSpecFunctionExposure, bool)`
+`func (o *InstanceSpecFunction) GetExposureOk() (*InstanceSpecFunctionAllOfExposure, bool)`
 
 GetExposureOk returns a tuple with the Exposure field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExposure
 
-`func (o *InstanceSpecFunction) SetExposure(v InstanceSpecFunctionExposure)`
+`func (o *InstanceSpecFunction) SetExposure(v InstanceSpecFunctionAllOfExposure)`
 
 SetExposure sets Exposure field to given value.
 

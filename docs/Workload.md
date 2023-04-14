@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ApiVersion** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** | Determine the kind of object you want to create | [optional] 
+**Kind** | Pointer to [**Kind**](Kind.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Spec** | Pointer to [**WorkloadSpec**](WorkloadSpec.md) |  | [optional] 
 
@@ -55,20 +55,20 @@ HasApiVersion returns a boolean if a field has been set.
 
 ### GetKind
 
-`func (o *Workload) GetKind() string`
+`func (o *Workload) GetKind() Kind`
 
 GetKind returns the Kind field if non-nil, zero value otherwise.
 
 ### GetKindOk
 
-`func (o *Workload) GetKindOk() (*string, bool)`
+`func (o *Workload) GetKindOk() (*Kind, bool)`
 
 GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKind
 
-`func (o *Workload) SetKind(v string)`
+`func (o *Workload) SetKind(v Kind)`
 
 SetKind sets Kind field to given value.
 

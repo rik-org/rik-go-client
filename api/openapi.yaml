@@ -3,8 +3,8 @@ info:
   description: |
     RESTful public-facing API.
     The API is accessible through HTTP calls on specific URLs carrying JSON modeled data.
-  title: RIK API
-  version: 0.1.2
+  title: RIK
+  version: 0.1.3
 servers:
 - url: /
 paths:
@@ -22,35 +22,6 @@ paths:
       summary: List all the workloads available in the cluster
       tags:
       - Workloads
-  /api/v0/workloads.instances/{workloadId}:
-    get:
-      description: Retrieve the list of instances for the given workload.
-      operationId: get-workload-instances
-      parameters:
-      - explode: false
-        in: path
-        name: workloadId
-        required: true
-        schema:
-          example: 28dcac69-33ef-4b13-a42f-0d07c7acc1a6
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/get_workload_instances_200_response'
-          description: Workload has been found and it has instances
-        "204":
-          description: Workload has been found but it has no instances yet
-        "404":
-          description: Workload has not been found
-        "400":
-          description: Workload ID is not provided
-      summary: Get all the instances for the given workload
-      tags:
-      - Workloads
   /api/v0/workloads.create:
     post:
       description: Create a new workload
@@ -59,13 +30,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Workload'
+              $ref: '#/components/schemas/CreateWorkloadRequest'
       responses:
         "200":
           content:
-            text/plain:
+            application/json:
               schema:
-                $ref: '#/components/schemas/WorkloadName'
+                $ref: '#/components/schemas/create_workload_200_response'
           description: Successful Response
       summary: Create a new workload
       tags:
@@ -78,7 +49,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkloadName'
+              $ref: '#/components/schemas/Metadata'
       responses:
         "200":
           description: Successful Response
@@ -93,8 +64,36 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/get_workload_instances_200_response'
+                $ref: '#/components/schemas/get_instances_200_response'
           description: OK
+      tags:
+      - Instances
+  /api/v0/workloads.instances/{workloadId}:
+    get:
+      description: Retrieve the list of instances for the given workload.
+      operationId: get-workload-instances
+      parameters:
+      - explode: false
+        in: path
+        name: workloadId
+        required: true
+        schema:
+          $ref: '#/components/schemas/UUID'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWorkloadInstancesResponse'
+          description: Workload has been found and it has instances
+        "204":
+          description: Workload has been found but it has no instances yet
+        "404":
+          description: Workload has not been found
+        "400":
+          description: Workload ID is not provided
+      summary: Get all the instances for the given workload
       tags:
       - Instances
   /api/v0/instances.create:
@@ -105,10 +104,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InstanceDefinition'
+              $ref: '#/components/schemas/CreateInstanceRequest'
       responses:
         "200":
-          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateInstanceResponse'
+          description: The instances were successfully scheduled.
       summary: Create a new instance for a given workload
       tags:
       - Instances
@@ -128,478 +131,206 @@ paths:
       - Instances
 components:
   schemas:
-    UUID:
-      example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
-      type: string
     GetWorkloadsResponse:
       items:
-        $ref: '#/components/schemas/WorkloadMeta'
+        $ref: '#/components/schemas/GetWorkloadsResponse_inner'
+      type: array
+    CreateWorkloadRequest:
+      $ref: '#/components/schemas/Workload'
+    CreateWorkloadResponse:
+      properties:
+        id:
+          description: Simple helper schema to define an UUID
+          example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          type: string
+      type: object
+    CreateInstanceRequest:
+      example:
+        replicas: 1
+        name: my-super-instance-of-my-workload
+        workload_id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+      properties:
+        workload_id:
+          description: Simple helper schema to define an UUID
+          example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          type: string
+        name:
+          description: The name of your instance.
+          example: my-super-instance-of-my-workload
+          type: string
+        replicas:
+          default: 1
+          description: The number of instances to deploy.
+          example: 1
+          type: integer
+      required:
+      - name
+      - workload_id
+      type: object
+    CreateInstanceResponse:
+      items:
+        example: my-instance-name
+        type: string
+      type: array
+    GetInstancesResponse:
+      items:
+        $ref: '#/components/schemas/GetInstancesResponse_inner'
       type: array
     GetWorkloadInstancesResponse:
+      example:
+        instances:
+        - kind: null
+          namespace: default
+          id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          workload_id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          spec:
+            function: null
+            containers:
+            - image: ubuntu:latest
+              name: ubuntu-container
+            - image: ubuntu:latest
+              name: ubuntu-container
+          status: null
+        - kind: null
+          namespace: default
+          id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          workload_id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          spec:
+            function: null
+            containers:
+            - image: ubuntu:latest
+              name: ubuntu-container
+            - image: ubuntu:latest
+              name: ubuntu-container
+          status: null
       properties:
         instances:
           items:
             $ref: '#/components/schemas/Instance'
           type: array
       type: object
-    WorkloadMeta:
+    UUID:
+      description: Simple helper schema to define an UUID
+      example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+      type: string
+    Metadata:
+      description: The metadata of a workload.
       example:
         name: name
         id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
-        value:
-          apiVersion: v1
-          kind: Pod
-          name: my-super-workload
-          spec:
-            function:
-              execution:
-                rootfs: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
-              exposure:
-                port: 8080
-                type: NodePort
-                targetPort: 43000
-            containers:
-            - containers:
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-            - containers:
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
       properties:
         id:
+          description: Simple helper schema to define an UUID
           example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
           type: string
         name:
           type: string
-        value:
-          $ref: '#/components/schemas/Workload'
       type: object
-    ContainerWorkload:
+    Kind:
+      description: The kind of a workload.
+      enum:
+      - Pod
+      - Function
+      type: string
+    Status:
+      description: The status of a workload instance.
+      enum:
+      - Running
+      - Unknown
+      - Failed
+      - Terminated
+      - Creating
+      - Destroying
+      type: string
+    Container:
+      description: The specification to define a container inside a workload.
       example:
-        containers:
-        - image: <image>
-          name: <name>
-          env:
-          - name: key1
-            value: value1
-          - name: key1
-            value: value1
-          network:
-            protocol: TCP
-            port: 80
-            type: clusterIP|nodePort|loadBalancer
-            targetPort: 80
-        - image: <image>
-          name: <name>
-          env:
-          - name: key1
-            value: value1
-          - name: key1
-            value: value1
-          network:
-            protocol: TCP
-            port: 80
-            type: clusterIP|nodePort|loadBalancer
-            targetPort: 80
+        image: ubuntu:latest
+        name: ubuntu-container
       properties:
-        containers:
-          items:
-            $ref: '#/components/schemas/ContainerWorkload_containers_inner'
-          type: array
+        name:
+          example: ubuntu-container
+          type: string
+        image:
+          example: ubuntu:latest
+          type: string
       type: object
-    FunctionWorkload:
-      description: "A definition for a Function, no network is required as it's handled\
-        \ by the underlying platform"
+    Function:
+      description: The specification to define a function inside a workload.
       example:
         execution:
           rootfs: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
-        exposure:
-          port: 8080
-          type: NodePort
-          targetPort: 43000
       properties:
         execution:
-          $ref: '#/components/schemas/FunctionWorkload_execution'
-        exposure:
-          $ref: '#/components/schemas/FunctionWorkload_exposure'
+          $ref: '#/components/schemas/Function_execution'
       type: object
     Workload:
       example:
         apiVersion: v1
-        kind: Pod
+        kind: null
         name: my-super-workload
         spec:
           function:
             execution:
               rootfs: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
-            exposure:
-              port: 8080
-              type: NodePort
-              targetPort: 43000
           containers:
-          - containers:
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-          - containers:
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
+          - image: ubuntu:latest
+            name: ubuntu-container
+          - image: ubuntu:latest
+            name: ubuntu-container
       properties:
         apiVersion:
           example: v1
           type: string
         kind:
-          description: Determine the kind of object you want to create
-          enum:
-          - Pod
-          - Function
-          type: string
+          $ref: '#/components/schemas/Kind'
         name:
           example: my-super-workload
           type: string
         spec:
           $ref: '#/components/schemas/Workload_spec'
       type: object
-    InstanceDefinition:
-      example:
-        replicas: 3
-        name: cobra-citer-1923
-        workload_id: c63f1351-d371-4700-81a4-ac97359bf5a3
-      properties:
-        name:
-          example: cobra-citer-1923
-          type: string
-        workload_id:
-          example: c63f1351-d371-4700-81a4-ac97359bf5a3
-          type: string
-        replicas:
-          example: 3
-          type: integer
-      required:
-      - name
-      - workload_id
-      type: object
-    WorkloadName:
-      example:
-        name: <workload name>
-        id: c346030b-aa9e-45a9-85eb-ec38d51dfa44
-      properties:
-        id:
-          example: c346030b-aa9e-45a9-85eb-ec38d51dfa44
-          type: string
-        name:
-          example: <workload name>
-          type: string
-      type: object
     Instance:
       example:
-        kind: Pod
+        kind: null
         namespace: default
-        id: c346030b-aa9e-45a9-85eb-ec38d51dfa44
-        workload_id: 49b43572-7c4d-4e36-aad8-8eb4dc1c3c37
+        id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+        workload_id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
         spec:
-          function:
-            execution:
-              rootfs: http://registry.com/v1/functions/go
-            exposure:
-              port: 47008
-              type: NodePort
-              targetPort: 8080
+          function: null
           containers:
-          - containers:
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-          - containers:
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-            - image: <image>
-              name: <name>
-              env:
-              - name: key1
-                value: value1
-              - name: key1
-                value: value1
-              network:
-                protocol: TCP
-                port: 80
-                type: clusterIP|nodePort|loadBalancer
-                targetPort: 80
-        status: Running
+          - image: ubuntu:latest
+            name: ubuntu-container
+          - image: ubuntu:latest
+            name: ubuntu-container
+        status: null
       properties:
         id:
-          example: c346030b-aa9e-45a9-85eb-ec38d51dfa44
+          description: Simple helper schema to define an UUID
+          example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
           type: string
         kind:
-          enum:
-          - Pod
-          - Function
+          $ref: '#/components/schemas/Kind'
+        status:
+          $ref: '#/components/schemas/Status'
+        workload_id:
+          description: Simple helper schema to define an UUID
+          example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
           type: string
         namespace:
           example: default
           type: string
-        status:
-          example: Running
-          type: string
-        workload_id:
-          example: 49b43572-7c4d-4e36-aad8-8eb4dc1c3c37
-          type: string
         spec:
           $ref: '#/components/schemas/Instance_spec'
       type: object
-    get_workload_instances_200_response:
-      example:
-        instances:
-        - kind: Pod
-          namespace: default
-          id: c346030b-aa9e-45a9-85eb-ec38d51dfa44
-          workload_id: 49b43572-7c4d-4e36-aad8-8eb4dc1c3c37
-          spec:
-            function:
-              execution:
-                rootfs: http://registry.com/v1/functions/go
-              exposure:
-                port: 47008
-                type: NodePort
-                targetPort: 8080
-            containers:
-            - containers:
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-            - containers:
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-          status: Running
-        - kind: Pod
-          namespace: default
-          id: c346030b-aa9e-45a9-85eb-ec38d51dfa44
-          workload_id: 49b43572-7c4d-4e36-aad8-8eb4dc1c3c37
-          spec:
-            function:
-              execution:
-                rootfs: http://registry.com/v1/functions/go
-              exposure:
-                port: 47008
-                type: NodePort
-                targetPort: 8080
-            containers:
-            - containers:
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-            - containers:
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-              - image: <image>
-                name: <name>
-                env:
-                - name: key1
-                  value: value1
-                - name: key1
-                  value: value1
-                network:
-                  protocol: TCP
-                  port: 80
-                  type: clusterIP|nodePort|loadBalancer
-                  targetPort: 80
-          status: Running
+    create_workload_200_response:
+      oneOf:
+      - $ref: '#/components/schemas/CreateWorkloadResponse'
+    get_instances_200_response:
       properties:
         instances:
           items:
-            $ref: '#/components/schemas/Instance'
+            $ref: '#/components/schemas/GetInstancesResponse'
           type: array
       type: object
     delete_instance_request:
@@ -608,89 +339,32 @@ components:
           example: 28dcac69-33ef-4b13-a42f-0d07c7acc1a6
           type: string
       type: object
-    ContainerWorkload_containers_inner_env_inner:
-      example:
-        name: key1
-        value: value1
+    GetWorkloadsResponse_inner_allOf:
       properties:
-        name:
-          example: key1
-          type: string
         value:
-          example: value1
-          type: string
+          $ref: '#/components/schemas/Workload'
       type: object
-    ContainerWorkload_containers_inner_network:
-      example:
-        protocol: TCP
-        port: 80
-        type: clusterIP|nodePort|loadBalancer
-        targetPort: 80
+    GetWorkloadsResponse_inner:
+      allOf:
+      - $ref: '#/components/schemas/Metadata'
+      - $ref: '#/components/schemas/GetWorkloadsResponse_inner_allOf'
+      type: object
+    GetInstancesResponse_inner_allOf:
       properties:
-        port:
-          example: 80
-          type: number
-        targetPort:
-          example: 80
-          type: number
-        protocol:
-          example: TCP
-          type: string
-        type:
-          example: clusterIP|nodePort|loadBalancer
-          type: string
+        value:
+          $ref: '#/components/schemas/Instance'
       type: object
-    ContainerWorkload_containers_inner:
-      example:
-        image: <image>
-        name: <name>
-        env:
-        - name: key1
-          value: value1
-        - name: key1
-          value: value1
-        network:
-          protocol: TCP
-          port: 80
-          type: clusterIP|nodePort|loadBalancer
-          targetPort: 80
-      properties:
-        name:
-          example: <name>
-          type: string
-        image:
-          example: <image>
-          type: string
-        env:
-          items:
-            $ref: '#/components/schemas/ContainerWorkload_containers_inner_env_inner'
-          type: array
-        network:
-          $ref: '#/components/schemas/ContainerWorkload_containers_inner_network'
+    GetInstancesResponse_inner:
+      allOf:
+      - $ref: '#/components/schemas/Metadata'
+      - $ref: '#/components/schemas/GetInstancesResponse_inner_allOf'
       type: object
-    FunctionWorkload_execution:
+    Function_execution:
       example:
         rootfs: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
       properties:
         rootfs:
           example: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
-          type: string
-      type: object
-    FunctionWorkload_exposure:
-      example:
-        port: 8080
-        type: NodePort
-        targetPort: 43000
-      properties:
-        port:
-          example: 8080
-          type: integer
-        targetPort:
-          example: 43000
-          type: integer
-        type:
-          description: The type of the exposure
-          example: NodePort
           type: string
       type: object
     Workload_spec:
@@ -699,82 +373,20 @@ components:
         function:
           execution:
             rootfs: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
-          exposure:
-            port: 8080
-            type: NodePort
-            targetPort: 43000
         containers:
-        - containers:
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
-        - containers:
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
+        - image: ubuntu:latest
+          name: ubuntu-container
+        - image: ubuntu:latest
+          name: ubuntu-container
       properties:
         function:
-          $ref: '#/components/schemas/FunctionWorkload'
+          $ref: '#/components/schemas/Function'
         containers:
           items:
-            $ref: '#/components/schemas/ContainerWorkload'
+            $ref: '#/components/schemas/Container'
           type: array
       type: object
-    Instance_spec_function_execution:
-      example:
-        rootfs: http://registry.com/v1/functions/go
-      properties:
-        rootfs:
-          example: http://registry.com/v1/functions/go
-          type: string
-      type: object
-    Instance_spec_function_exposure:
-      example:
-        port: 47008
-        type: NodePort
-        targetPort: 8080
+    Instance_spec_function_allOf_exposure:
       properties:
         port:
           example: 47008
@@ -786,84 +398,28 @@ components:
           example: NodePort
           type: string
       type: object
-    Instance_spec_function:
-      example:
-        execution:
-          rootfs: http://registry.com/v1/functions/go
-        exposure:
-          port: 47008
-          type: NodePort
-          targetPort: 8080
+    Instance_spec_function_allOf:
       properties:
-        execution:
-          $ref: '#/components/schemas/Instance_spec_function_execution'
         exposure:
-          $ref: '#/components/schemas/Instance_spec_function_exposure'
+          $ref: '#/components/schemas/Instance_spec_function_allOf_exposure'
+      type: object
+    Instance_spec_function:
+      allOf:
+      - $ref: '#/components/schemas/Function'
+      - $ref: '#/components/schemas/Instance_spec_function_allOf'
       type: object
     Instance_spec:
       example:
-        function:
-          execution:
-            rootfs: http://registry.com/v1/functions/go
-          exposure:
-            port: 47008
-            type: NodePort
-            targetPort: 8080
+        function: null
         containers:
-        - containers:
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
-        - containers:
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
-          - image: <image>
-            name: <name>
-            env:
-            - name: key1
-              value: value1
-            - name: key1
-              value: value1
-            network:
-              protocol: TCP
-              port: 80
-              type: clusterIP|nodePort|loadBalancer
-              targetPort: 80
+        - image: ubuntu:latest
+          name: ubuntu-container
+        - image: ubuntu:latest
+          name: ubuntu-container
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/ContainerWorkload'
+            $ref: '#/components/schemas/Container'
           type: array
         function:
           $ref: '#/components/schemas/Instance_spec_function'
