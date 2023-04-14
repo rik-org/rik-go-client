@@ -14,8 +14,8 @@ docs/ContainerWorkloadContainersInner.md
 docs/ContainerWorkloadContainersInnerEnvInner.md
 docs/ContainerWorkloadContainersInnerNetwork.md
 docs/FunctionWorkload.md
-docs/FunctionWorkloadFunction.md
-docs/FunctionWorkloadFunctionExecution.md
+docs/FunctionWorkloadExecution.md
+docs/FunctionWorkloadExposure.md
 docs/GetWorkloadInstancesResponse.md
 docs/Instance.md
 docs/InstanceDefinition.md
@@ -25,11 +25,8 @@ docs/InstanceSpecFunctionExecution.md
 docs/InstanceSpecFunctionExposure.md
 docs/InstancesApi.md
 docs/Workload.md
-docs/WorkloadDefinition.md
-docs/WorkloadDefinitionSpec.md
 docs/WorkloadName.md
 docs/WorkloadSpec.md
-docs/WorkloadSpecContainersInner.md
 docs/WorkloadsApi.md
 git_push.sh
 go.mod
@@ -41,8 +38,8 @@ model_container_workload_containers_inner.go
 model_container_workload_containers_inner_env_inner.go
 model_container_workload_containers_inner_network.go
 model_function_workload.go
-model_function_workload_function.go
-model_function_workload_function_execution.go
+model_function_workload_execution.go
+model_function_workload_exposure.go
 model_get_workload_instances_response.go
 model_instance.go
 model_instance_definition.go
@@ -51,11 +48,8 @@ model_instance_spec_function.go
 model_instance_spec_function_execution.go
 model_instance_spec_function_exposure.go
 model_workload.go
-model_workload_definition.go
-model_workload_definition_spec.go
 model_workload_name.go
 model_workload_spec.go
-model_workload_spec_containers_inner.go
 response.go
 test/api_instances_test.go
 test/api_workloads_test.go

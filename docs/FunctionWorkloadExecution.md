@@ -1,4 +1,4 @@
-# FunctionWorkloadFunctionExecution
+# FunctionWorkloadExecution
 
 ## Properties
 
@@ -8,45 +8,45 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewFunctionWorkloadFunctionExecution
+### NewFunctionWorkloadExecution
 
-`func NewFunctionWorkloadFunctionExecution() *FunctionWorkloadFunctionExecution`
+`func NewFunctionWorkloadExecution() *FunctionWorkloadExecution`
 
-NewFunctionWorkloadFunctionExecution instantiates a new FunctionWorkloadFunctionExecution object
+NewFunctionWorkloadExecution instantiates a new FunctionWorkloadExecution object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewFunctionWorkloadFunctionExecutionWithDefaults
+### NewFunctionWorkloadExecutionWithDefaults
 
-`func NewFunctionWorkloadFunctionExecutionWithDefaults() *FunctionWorkloadFunctionExecution`
+`func NewFunctionWorkloadExecutionWithDefaults() *FunctionWorkloadExecution`
 
-NewFunctionWorkloadFunctionExecutionWithDefaults instantiates a new FunctionWorkloadFunctionExecution object
+NewFunctionWorkloadExecutionWithDefaults instantiates a new FunctionWorkloadExecution object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetRootfs
 
-`func (o *FunctionWorkloadFunctionExecution) GetRootfs() string`
+`func (o *FunctionWorkloadExecution) GetRootfs() string`
 
 GetRootfs returns the Rootfs field if non-nil, zero value otherwise.
 
 ### GetRootfsOk
 
-`func (o *FunctionWorkloadFunctionExecution) GetRootfsOk() (*string, bool)`
+`func (o *FunctionWorkloadExecution) GetRootfsOk() (*string, bool)`
 
 GetRootfsOk returns a tuple with the Rootfs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRootfs
 
-`func (o *FunctionWorkloadFunctionExecution) SetRootfs(v string)`
+`func (o *FunctionWorkloadExecution) SetRootfs(v string)`
 
 SetRootfs sets Rootfs field to given value.
 
 ### HasRootfs
 
-`func (o *FunctionWorkloadFunctionExecution) HasRootfs() bool`
+`func (o *FunctionWorkloadExecution) HasRootfs() bool`
 
 HasRootfs returns a boolean if a field has been set.
 

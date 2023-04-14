@@ -6,13 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ApiV0WorkloadsCreatePost**](WorkloadsApi.md#ApiV0WorkloadsCreatePost) | **Post** /api/v0/workloads.create | 
 [**ApiV0WorkloadsDeletePost**](WorkloadsApi.md#ApiV0WorkloadsDeletePost) | **Post** /api/v0/workloads.delete | 
-[**ApiV0WorkloadsListGet**](WorkloadsApi.md#ApiV0WorkloadsListGet) | **Get** /api/v0/workloads.list | 
+[**GetWorkloads**](WorkloadsApi.md#GetWorkloads) | **Get** /api/v0/workloads.list | List all the workloads available in the cluster
 
 
 
 ## ApiV0WorkloadsCreatePost
 
-> WorkloadName ApiV0WorkloadsCreatePost(ctx).WorkloadDefinition(workloadDefinition).Execute()
+> WorkloadName ApiV0WorkloadsCreatePost(ctx).Workload(workload).Execute()
 
 
 
@@ -31,11 +31,11 @@ import (
 )
 
 func main() {
-    workloadDefinition := *openapiclient.NewWorkloadDefinition() // WorkloadDefinition |  (optional)
+    workload := *openapiclient.NewWorkload() // Workload |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkloadsApi.ApiV0WorkloadsCreatePost(context.Background()).WorkloadDefinition(workloadDefinition).Execute()
+    resp, r, err := apiClient.WorkloadsApi.ApiV0WorkloadsCreatePost(context.Background()).Workload(workload).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsApi.ApiV0WorkloadsCreatePost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiApiV0WorkloadsCreatePostRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **workloadDefinition** | [**WorkloadDefinition**](WorkloadDefinition.md) |  | 
+ **workload** | [**Workload**](Workload.md) |  | 
 
 ### Return type
 
@@ -140,9 +140,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ApiV0WorkloadsListGet
+## GetWorkloads
 
-> []Workload ApiV0WorkloadsListGet(ctx).Execute()
+> []Workload GetWorkloads(ctx).Execute()
+
+List all the workloads available in the cluster
 
 
 
@@ -162,13 +164,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkloadsApi.ApiV0WorkloadsListGet(context.Background()).Execute()
+    resp, r, err := apiClient.WorkloadsApi.GetWorkloads(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsApi.ApiV0WorkloadsListGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsApi.GetWorkloads``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ApiV0WorkloadsListGet`: []Workload
-    fmt.Fprintf(os.Stdout, "Response from `WorkloadsApi.ApiV0WorkloadsListGet`: %v\n", resp)
+    // response from `GetWorkloads`: []Workload
+    fmt.Fprintf(os.Stdout, "Response from `WorkloadsApi.GetWorkloads`: %v\n", resp)
 }
 ```
 
@@ -178,7 +180,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiApiV0WorkloadsListGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetWorkloadsRequest struct via the builder pattern
 
 
 ### Return type

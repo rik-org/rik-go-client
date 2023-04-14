@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Function** | Pointer to [**FunctionWorkloadFunction**](FunctionWorkloadFunction.md) |  | [optional] 
+**Execution** | Pointer to [**FunctionWorkloadExecution**](FunctionWorkloadExecution.md) |  | [optional] 
+**Exposure** | Pointer to [**FunctionWorkloadExposure**](FunctionWorkloadExposure.md) |  | [optional] 
 
 ## Methods
 
@@ -25,30 +26,55 @@ NewFunctionWorkloadWithDefaults instantiates a new FunctionWorkload object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetFunction
+### GetExecution
 
-`func (o *FunctionWorkload) GetFunction() FunctionWorkloadFunction`
+`func (o *FunctionWorkload) GetExecution() FunctionWorkloadExecution`
 
-GetFunction returns the Function field if non-nil, zero value otherwise.
+GetExecution returns the Execution field if non-nil, zero value otherwise.
 
-### GetFunctionOk
+### GetExecutionOk
 
-`func (o *FunctionWorkload) GetFunctionOk() (*FunctionWorkloadFunction, bool)`
+`func (o *FunctionWorkload) GetExecutionOk() (*FunctionWorkloadExecution, bool)`
 
-GetFunctionOk returns a tuple with the Function field if it's non-nil, zero value otherwise
+GetExecutionOk returns a tuple with the Execution field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFunction
+### SetExecution
 
-`func (o *FunctionWorkload) SetFunction(v FunctionWorkloadFunction)`
+`func (o *FunctionWorkload) SetExecution(v FunctionWorkloadExecution)`
 
-SetFunction sets Function field to given value.
+SetExecution sets Execution field to given value.
 
-### HasFunction
+### HasExecution
 
-`func (o *FunctionWorkload) HasFunction() bool`
+`func (o *FunctionWorkload) HasExecution() bool`
 
-HasFunction returns a boolean if a field has been set.
+HasExecution returns a boolean if a field has been set.
+
+### GetExposure
+
+`func (o *FunctionWorkload) GetExposure() FunctionWorkloadExposure`
+
+GetExposure returns the Exposure field if non-nil, zero value otherwise.
+
+### GetExposureOk
+
+`func (o *FunctionWorkload) GetExposureOk() (*FunctionWorkloadExposure, bool)`
+
+GetExposureOk returns a tuple with the Exposure field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExposure
+
+`func (o *FunctionWorkload) SetExposure(v FunctionWorkloadExposure)`
+
+SetExposure sets Exposure field to given value.
+
+### HasExposure
+
+`func (o *FunctionWorkload) HasExposure() bool`
+
+HasExposure returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

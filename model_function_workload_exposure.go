@@ -14,35 +14,36 @@ import (
 	"encoding/json"
 )
 
-// checks if the InstanceSpecFunctionExposure type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &InstanceSpecFunctionExposure{}
+// checks if the FunctionWorkloadExposure type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FunctionWorkloadExposure{}
 
-// InstanceSpecFunctionExposure struct for InstanceSpecFunctionExposure
-type InstanceSpecFunctionExposure struct {
+// FunctionWorkloadExposure struct for FunctionWorkloadExposure
+type FunctionWorkloadExposure struct {
 	Port *int32 `json:"port,omitempty"`
 	TargetPort *int32 `json:"targetPort,omitempty"`
+	// The type of the exposure
 	Type *string `json:"type,omitempty"`
 }
 
-// NewInstanceSpecFunctionExposure instantiates a new InstanceSpecFunctionExposure object
+// NewFunctionWorkloadExposure instantiates a new FunctionWorkloadExposure object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceSpecFunctionExposure() *InstanceSpecFunctionExposure {
-	this := InstanceSpecFunctionExposure{}
+func NewFunctionWorkloadExposure() *FunctionWorkloadExposure {
+	this := FunctionWorkloadExposure{}
 	return &this
 }
 
-// NewInstanceSpecFunctionExposureWithDefaults instantiates a new InstanceSpecFunctionExposure object
+// NewFunctionWorkloadExposureWithDefaults instantiates a new FunctionWorkloadExposure object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewInstanceSpecFunctionExposureWithDefaults() *InstanceSpecFunctionExposure {
-	this := InstanceSpecFunctionExposure{}
+func NewFunctionWorkloadExposureWithDefaults() *FunctionWorkloadExposure {
+	this := FunctionWorkloadExposure{}
 	return &this
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *InstanceSpecFunctionExposure) GetPort() int32 {
+func (o *FunctionWorkloadExposure) GetPort() int32 {
 	if o == nil || IsNil(o.Port) {
 		var ret int32
 		return ret
@@ -52,7 +53,7 @@ func (o *InstanceSpecFunctionExposure) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InstanceSpecFunctionExposure) GetPortOk() (*int32, bool) {
+func (o *FunctionWorkloadExposure) GetPortOk() (*int32, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -60,7 +61,7 @@ func (o *InstanceSpecFunctionExposure) GetPortOk() (*int32, bool) {
 }
 
 // HasPort returns a boolean if a field has been set.
-func (o *InstanceSpecFunctionExposure) HasPort() bool {
+func (o *FunctionWorkloadExposure) HasPort() bool {
 	if o != nil && !IsNil(o.Port) {
 		return true
 	}
@@ -69,12 +70,12 @@ func (o *InstanceSpecFunctionExposure) HasPort() bool {
 }
 
 // SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *InstanceSpecFunctionExposure) SetPort(v int32) {
+func (o *FunctionWorkloadExposure) SetPort(v int32) {
 	o.Port = &v
 }
 
 // GetTargetPort returns the TargetPort field value if set, zero value otherwise.
-func (o *InstanceSpecFunctionExposure) GetTargetPort() int32 {
+func (o *FunctionWorkloadExposure) GetTargetPort() int32 {
 	if o == nil || IsNil(o.TargetPort) {
 		var ret int32
 		return ret
@@ -84,7 +85,7 @@ func (o *InstanceSpecFunctionExposure) GetTargetPort() int32 {
 
 // GetTargetPortOk returns a tuple with the TargetPort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InstanceSpecFunctionExposure) GetTargetPortOk() (*int32, bool) {
+func (o *FunctionWorkloadExposure) GetTargetPortOk() (*int32, bool) {
 	if o == nil || IsNil(o.TargetPort) {
 		return nil, false
 	}
@@ -92,7 +93,7 @@ func (o *InstanceSpecFunctionExposure) GetTargetPortOk() (*int32, bool) {
 }
 
 // HasTargetPort returns a boolean if a field has been set.
-func (o *InstanceSpecFunctionExposure) HasTargetPort() bool {
+func (o *FunctionWorkloadExposure) HasTargetPort() bool {
 	if o != nil && !IsNil(o.TargetPort) {
 		return true
 	}
@@ -101,12 +102,12 @@ func (o *InstanceSpecFunctionExposure) HasTargetPort() bool {
 }
 
 // SetTargetPort gets a reference to the given int32 and assigns it to the TargetPort field.
-func (o *InstanceSpecFunctionExposure) SetTargetPort(v int32) {
+func (o *FunctionWorkloadExposure) SetTargetPort(v int32) {
 	o.TargetPort = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *InstanceSpecFunctionExposure) GetType() string {
+func (o *FunctionWorkloadExposure) GetType() string {
 	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
@@ -116,7 +117,7 @@ func (o *InstanceSpecFunctionExposure) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InstanceSpecFunctionExposure) GetTypeOk() (*string, bool) {
+func (o *FunctionWorkloadExposure) GetTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -124,7 +125,7 @@ func (o *InstanceSpecFunctionExposure) GetTypeOk() (*string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (o *InstanceSpecFunctionExposure) HasType() bool {
+func (o *FunctionWorkloadExposure) HasType() bool {
 	if o != nil && !IsNil(o.Type) {
 		return true
 	}
@@ -133,11 +134,11 @@ func (o *InstanceSpecFunctionExposure) HasType() bool {
 }
 
 // SetType gets a reference to the given string and assigns it to the Type field.
-func (o *InstanceSpecFunctionExposure) SetType(v string) {
+func (o *FunctionWorkloadExposure) SetType(v string) {
 	o.Type = &v
 }
 
-func (o InstanceSpecFunctionExposure) MarshalJSON() ([]byte, error) {
+func (o FunctionWorkloadExposure) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -145,7 +146,7 @@ func (o InstanceSpecFunctionExposure) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o InstanceSpecFunctionExposure) ToMap() (map[string]interface{}, error) {
+func (o FunctionWorkloadExposure) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Port) {
 		toSerialize["port"] = o.Port
@@ -159,38 +160,38 @@ func (o InstanceSpecFunctionExposure) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableInstanceSpecFunctionExposure struct {
-	value *InstanceSpecFunctionExposure
+type NullableFunctionWorkloadExposure struct {
+	value *FunctionWorkloadExposure
 	isSet bool
 }
 
-func (v NullableInstanceSpecFunctionExposure) Get() *InstanceSpecFunctionExposure {
+func (v NullableFunctionWorkloadExposure) Get() *FunctionWorkloadExposure {
 	return v.value
 }
 
-func (v *NullableInstanceSpecFunctionExposure) Set(val *InstanceSpecFunctionExposure) {
+func (v *NullableFunctionWorkloadExposure) Set(val *FunctionWorkloadExposure) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableInstanceSpecFunctionExposure) IsSet() bool {
+func (v NullableFunctionWorkloadExposure) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableInstanceSpecFunctionExposure) Unset() {
+func (v *NullableFunctionWorkloadExposure) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableInstanceSpecFunctionExposure(val *InstanceSpecFunctionExposure) *NullableInstanceSpecFunctionExposure {
-	return &NullableInstanceSpecFunctionExposure{value: val, isSet: true}
+func NewNullableFunctionWorkloadExposure(val *FunctionWorkloadExposure) *NullableFunctionWorkloadExposure {
+	return &NullableFunctionWorkloadExposure{value: val, isSet: true}
 }
 
-func (v NullableInstanceSpecFunctionExposure) MarshalJSON() ([]byte, error) {
+func (v NullableFunctionWorkloadExposure) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableInstanceSpecFunctionExposure) UnmarshalJSON(src []byte) error {
+func (v *NullableFunctionWorkloadExposure) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
