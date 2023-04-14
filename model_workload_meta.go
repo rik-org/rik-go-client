@@ -14,34 +14,35 @@ import (
 	"encoding/json"
 )
 
-// checks if the WorkloadName type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &WorkloadName{}
+// checks if the WorkloadMeta type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WorkloadMeta{}
 
-// WorkloadName struct for WorkloadName
-type WorkloadName struct {
+// WorkloadMeta struct for WorkloadMeta
+type WorkloadMeta struct {
 	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
+	Value *Workload `json:"value,omitempty"`
 }
 
-// NewWorkloadName instantiates a new WorkloadName object
+// NewWorkloadMeta instantiates a new WorkloadMeta object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkloadName() *WorkloadName {
-	this := WorkloadName{}
+func NewWorkloadMeta() *WorkloadMeta {
+	this := WorkloadMeta{}
 	return &this
 }
 
-// NewWorkloadNameWithDefaults instantiates a new WorkloadName object
+// NewWorkloadMetaWithDefaults instantiates a new WorkloadMeta object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewWorkloadNameWithDefaults() *WorkloadName {
-	this := WorkloadName{}
+func NewWorkloadMetaWithDefaults() *WorkloadMeta {
+	this := WorkloadMeta{}
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *WorkloadName) GetId() string {
+func (o *WorkloadMeta) GetId() string {
 	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
@@ -51,7 +52,7 @@ func (o *WorkloadName) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkloadName) GetIdOk() (*string, bool) {
+func (o *WorkloadMeta) GetIdOk() (*string, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -59,7 +60,7 @@ func (o *WorkloadName) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *WorkloadName) HasId() bool {
+func (o *WorkloadMeta) HasId() bool {
 	if o != nil && !IsNil(o.Id) {
 		return true
 	}
@@ -68,12 +69,12 @@ func (o *WorkloadName) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *WorkloadName) SetId(v string) {
+func (o *WorkloadMeta) SetId(v string) {
 	o.Id = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *WorkloadName) GetName() string {
+func (o *WorkloadMeta) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -83,7 +84,7 @@ func (o *WorkloadName) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkloadName) GetNameOk() (*string, bool) {
+func (o *WorkloadMeta) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -91,7 +92,7 @@ func (o *WorkloadName) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *WorkloadName) HasName() bool {
+func (o *WorkloadMeta) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -100,11 +101,43 @@ func (o *WorkloadName) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *WorkloadName) SetName(v string) {
+func (o *WorkloadMeta) SetName(v string) {
 	o.Name = &v
 }
 
-func (o WorkloadName) MarshalJSON() ([]byte, error) {
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *WorkloadMeta) GetValue() Workload {
+	if o == nil || IsNil(o.Value) {
+		var ret Workload
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkloadMeta) GetValueOk() (*Workload, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *WorkloadMeta) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given Workload and assigns it to the Value field.
+func (o *WorkloadMeta) SetValue(v Workload) {
+	o.Value = &v
+}
+
+func (o WorkloadMeta) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -112,7 +145,7 @@ func (o WorkloadName) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o WorkloadName) ToMap() (map[string]interface{}, error) {
+func (o WorkloadMeta) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -120,41 +153,44 @@ func (o WorkloadName) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 	return toSerialize, nil
 }
 
-type NullableWorkloadName struct {
-	value *WorkloadName
+type NullableWorkloadMeta struct {
+	value *WorkloadMeta
 	isSet bool
 }
 
-func (v NullableWorkloadName) Get() *WorkloadName {
+func (v NullableWorkloadMeta) Get() *WorkloadMeta {
 	return v.value
 }
 
-func (v *NullableWorkloadName) Set(val *WorkloadName) {
+func (v *NullableWorkloadMeta) Set(val *WorkloadMeta) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableWorkloadName) IsSet() bool {
+func (v NullableWorkloadMeta) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableWorkloadName) Unset() {
+func (v *NullableWorkloadMeta) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableWorkloadName(val *WorkloadName) *NullableWorkloadName {
-	return &NullableWorkloadName{value: val, isSet: true}
+func NewNullableWorkloadMeta(val *WorkloadMeta) *NullableWorkloadMeta {
+	return &NullableWorkloadMeta{value: val, isSet: true}
 }
 
-func (v NullableWorkloadName) MarshalJSON() ([]byte, error) {
+func (v NullableWorkloadMeta) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableWorkloadName) UnmarshalJSON(src []byte) error {
+func (v *NullableWorkloadMeta) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -4,7 +4,7 @@ info:
     RESTful public-facing API.
     The API is accessible through HTTP calls on specific URLs carrying JSON modeled data.
   title: RIK API
-  version: 0.1.1
+  version: 0.1.2
 servers:
 - url: /
 paths:
@@ -24,7 +24,8 @@ paths:
       - Workloads
   /api/v0/workloads.instances/{workloadId}:
     get:
-      description: Get instances of a workload
+      description: Retrieve the list of instances for the given workload.
+      operationId: get-workload-instances
       parameters:
       - explode: false
         in: path
@@ -39,7 +40,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/_api_v0_workloads_instances__workloadId__get_200_response'
+                $ref: '#/components/schemas/get_workload_instances_200_response'
           description: Workload has been found and it has instances
         "204":
           description: Workload has been found but it has no instances yet
@@ -47,12 +48,13 @@ paths:
           description: Workload has not been found
         "400":
           description: Workload ID is not provided
-      summary: Get instances of a workload
+      summary: Get all the instances for the given workload
       tags:
-      - Instances
+      - Workloads
   /api/v0/workloads.create:
     post:
       description: Create a new workload
+      operationId: create-workload
       requestBody:
         content:
           application/json:
@@ -65,11 +67,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/WorkloadName'
           description: Successful Response
+      summary: Create a new workload
       tags:
       - Workloads
   /api/v0/workloads.delete:
     post:
       description: Delete a workload
+      operationId: delete-workload
       requestBody:
         content:
           application/json:
@@ -83,18 +87,20 @@ paths:
   /api/v0/instances.list:
     get:
       description: List all instances
+      operationId: get-instances
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/_api_v0_workloads_instances__workloadId__get_200_response'
+                $ref: '#/components/schemas/get_workload_instances_200_response'
           description: OK
       tags:
       - Instances
   /api/v0/instances.create:
     post:
-      description: Create a new instance
+      description: Create a new instance for a given workload.
+      operationId: create-workload-instance
       requestBody:
         content:
           application/json:
@@ -103,16 +109,18 @@ paths:
       responses:
         "200":
           description: Successful Response
+      summary: Create a new instance for a given workload
       tags:
       - Instances
   /api/v0/instances.delete:
     post:
       description: Delete an instance
+      operationId: delete-instance
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/_api_v0_instances_delete_post_request'
+              $ref: '#/components/schemas/delete_instance_request'
       responses:
         "200":
           description: Successful Response
@@ -125,7 +133,7 @@ components:
       type: string
     GetWorkloadsResponse:
       items:
-        $ref: '#/components/schemas/Workload'
+        $ref: '#/components/schemas/WorkloadMeta'
       type: array
     GetWorkloadInstancesResponse:
       properties:
@@ -133,6 +141,82 @@ components:
           items:
             $ref: '#/components/schemas/Instance'
           type: array
+      type: object
+    WorkloadMeta:
+      example:
+        name: name
+        id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+        value:
+          apiVersion: v1
+          kind: Pod
+          name: my-super-workload
+          spec:
+            function:
+              execution:
+                rootfs: https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/aarch64/rootfs/bionic.rootfs.ext4
+              exposure:
+                port: 8080
+                type: NodePort
+                targetPort: 43000
+            containers:
+            - containers:
+              - image: <image>
+                name: <name>
+                env:
+                - name: key1
+                  value: value1
+                - name: key1
+                  value: value1
+                network:
+                  protocol: TCP
+                  port: 80
+                  type: clusterIP|nodePort|loadBalancer
+                  targetPort: 80
+              - image: <image>
+                name: <name>
+                env:
+                - name: key1
+                  value: value1
+                - name: key1
+                  value: value1
+                network:
+                  protocol: TCP
+                  port: 80
+                  type: clusterIP|nodePort|loadBalancer
+                  targetPort: 80
+            - containers:
+              - image: <image>
+                name: <name>
+                env:
+                - name: key1
+                  value: value1
+                - name: key1
+                  value: value1
+                network:
+                  protocol: TCP
+                  port: 80
+                  type: clusterIP|nodePort|loadBalancer
+                  targetPort: 80
+              - image: <image>
+                name: <name>
+                env:
+                - name: key1
+                  value: value1
+                - name: key1
+                  value: value1
+                network:
+                  protocol: TCP
+                  port: 80
+                  type: clusterIP|nodePort|loadBalancer
+                  targetPort: 80
+      properties:
+        id:
+          example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
+          type: string
+        name:
+          type: string
+        value:
+          $ref: '#/components/schemas/Workload'
       type: object
     ContainerWorkload:
       example:
@@ -188,7 +272,6 @@ components:
         apiVersion: v1
         kind: Pod
         name: my-super-workload
-        id: c540eaf0-e41b-4de8-bbda-d1c815443b6e
         spec:
           function:
             execution:
@@ -249,9 +332,6 @@ components:
                 type: clusterIP|nodePort|loadBalancer
                 targetPort: 80
       properties:
-        id:
-          example: c540eaf0-e41b-4de8-bbda-d1c815443b6e
-          type: string
         apiVersion:
           example: v1
           type: string
@@ -385,7 +465,7 @@ components:
         spec:
           $ref: '#/components/schemas/Instance_spec'
       type: object
-    _api_v0_workloads_instances__workloadId__get_200_response:
+    get_workload_instances_200_response:
       example:
         instances:
         - kind: Pod
@@ -522,7 +602,7 @@ components:
             $ref: '#/components/schemas/Instance'
           type: array
       type: object
-    _api_v0_instances_delete_post_request:
+    delete_instance_request:
       properties:
         id:
           example: 28dcac69-33ef-4b13-a42f-0d07c7acc1a6

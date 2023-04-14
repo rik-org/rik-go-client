@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
 **ApiVersion** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to **string** | Determine the kind of object you want to create | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
@@ -28,31 +27,6 @@ will change when the set of required properties is changed
 NewWorkloadWithDefaults instantiates a new Workload object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *Workload) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *Workload) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *Workload) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *Workload) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetApiVersion
 
