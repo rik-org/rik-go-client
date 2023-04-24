@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **WorkloadId** | **string** | Simple helper schema to define an UUID | 
-**Name** | **string** | The name of your instance. | 
+**Name** | Pointer to **string** | The name of your instance. | [optional] 
 **Replicas** | Pointer to **int32** | The number of instances to deploy. | [optional] [default to 1]
 
 ## Methods
 
 ### NewCreateInstanceRequest
 
-`func NewCreateInstanceRequest(workloadId string, name string, ) *CreateInstanceRequest`
+`func NewCreateInstanceRequest(workloadId string, ) *CreateInstanceRequest`
 
 NewCreateInstanceRequest instantiates a new CreateInstanceRequest object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +66,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *CreateInstanceRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetReplicas
 

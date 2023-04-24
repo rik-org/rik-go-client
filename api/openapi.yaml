@@ -164,7 +164,6 @@ components:
           example: 1
           type: integer
       required:
-      - name
       - workload_id
       type: object
     CreateInstanceResponse:

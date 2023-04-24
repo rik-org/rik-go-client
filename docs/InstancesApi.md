@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-    createInstanceRequest := *openapiclient.NewCreateInstanceRequest("c540eaf0-e41b-4de8-bbda-d1c815443b6e", "my-super-instance-of-my-workload") // CreateInstanceRequest |  (optional)
+    createInstanceRequest := *openapiclient.NewCreateInstanceRequest("c540eaf0-e41b-4de8-bbda-d1c815443b6e") // CreateInstanceRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

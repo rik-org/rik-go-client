@@ -22,7 +22,7 @@ type CreateInstanceRequest struct {
 	// Simple helper schema to define an UUID
 	WorkloadId string `json:"workload_id"`
 	// The name of your instance.
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// The number of instances to deploy.
 	Replicas *int32 `json:"replicas,omitempty"`
 }
@@ -31,10 +31,9 @@ type CreateInstanceRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateInstanceRequest(workloadId string, name string) *CreateInstanceRequest {
+func NewCreateInstanceRequest(workloadId string) *CreateInstanceRequest {
 	this := CreateInstanceRequest{}
 	this.WorkloadId = workloadId
-	this.Name = name
 	var replicas int32 = 1
 	this.Replicas = &replicas
 	return &this
@@ -74,28 +73,36 @@ func (o *CreateInstanceRequest) SetWorkloadId(v string) {
 	o.WorkloadId = v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *CreateInstanceRequest) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateInstanceRequest) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *CreateInstanceRequest) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *CreateInstanceRequest) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
@@ -141,7 +148,9 @@ func (o CreateInstanceRequest) MarshalJSON() ([]byte, error) {
 func (o CreateInstanceRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["workload_id"] = o.WorkloadId
-	toSerialize["name"] = o.Name
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 	if !IsNil(o.Replicas) {
 		toSerialize["replicas"] = o.Replicas
 	}
