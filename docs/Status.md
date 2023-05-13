@@ -5,7 +5,7 @@
 
 * `RUNNING` (value: `"Running"`)
 
-* `UNKNOWN` (value: `"Unknown"`)
+* `PENDING` (value: `"Pending"`)
 
 * `FAILED` (value: `"Failed"`)
 
